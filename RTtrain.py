@@ -114,7 +114,7 @@ class Train():
                     feed_dict={self.source_image: source_batch_x, self.source_label: source_batch_y,self.target_image: target_batch_x, self.Training_flag: True,self.action:a})
                 self.re_loss = tf.reduce_mean(tf.reduce_sum(tf.square(self.target_model.inputs - self.target_model.re), axis=[1, 2, 3]))
                 re_loss=sess.run(fetches=self.re_loss,feed_dict={self.target_image: target_batch_x, self.Training_flag: False})
-                reward=np.exp(re_loss)
+                reward=np.exp(-re_loss)
                 state_next=sess.run(
                     fetches=self.source_model.fc4,
                     feed_dict={self.source_image: source_batch_x, self.source_label: source_batch_y,self.target_image: target_batch_x, self.Training_flag: False})
